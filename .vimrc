@@ -13,6 +13,7 @@ Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'scrooloose/nerdtree'
 Bundle 'klen/python-mode'
+Bundle 'Valloric/YouCompleteMe'
 
 Plugin 'https://github.com/vim-scripts/sessionman.vim'
 Plugin 'TaskList.vim'
@@ -35,12 +36,12 @@ filetype plugin indent on
 
 map <F2> :NERDTreeToggle<CR>
 
+map <leader>td <Plug>TaskList
+
 set foldmethod=indent
 set foldlevel=99
 
-set smartindent
-
-
+set nosmartindent
 
 " Python-mode
 " Activate rope
@@ -55,7 +56,7 @@ set smartindent
 " ]]            Jump on next class or function (normal, visual, operator modes)
 " [M            Jump on previous class or method (normal, visual, operator modes)
 " ]M            Jump on next class or method (normal, visual, operator modes)
-let g:pymode_rope = 1
+let g:pymode_rope = 0
 
 " Documentation
 let g:pymode_doc = 1
@@ -66,6 +67,8 @@ let g:pymode_lint = 1
 let g:pymode_lint_checker = "pyflakes,pep8"
 " Auto check on save
 let g:pymode_lint_write = 1
+
+let g:pymode_lint_ignore = "E127"
 
 " Support virtualenv
 let g:pymode_virtualenv = 1
@@ -83,8 +86,12 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " Don't autofold code
 let g:pymode_folding = 0
 
-let g:pymode_rope_goto_definition_bind = "<leader>k"
+let g:ycm_autoclose_preview_window_after_completion=1
+nnoremap <leader>k :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"" let g:pymode_rope_goto_definition_bind = '<leader>k'
 
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
 
 
 " Sample .vimrc file by Martin Brochhaus
@@ -159,8 +166,10 @@ set bs=2     " make backspace behave like normal again
 " easier moving of code blocks
 " Try to go into visual mode (v), thenselect several lines of code here and
 " then press ``>`` several times.
-vnoremap < <gv  " better indentation
-vnoremap > >gv  " better indentation
+vnoremap < <gv
+" better indentation
+vnoremap > >gv
+" better indentation
 
 
 " Show whitespace
